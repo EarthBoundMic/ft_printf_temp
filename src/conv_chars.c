@@ -53,10 +53,12 @@ int		check_conv_char(char **format, va_list *list, t_flag *f)
 int		check_conv_wchar(char **format, va_list *list, t_flag *f)
 {
 	wchar_t	s;
+	int		c;
 	int		len;
 
 	(void)format;
-	s = (wchar_t)va_arg(*list, wint_t);
+//	s = (wchar_t)va_arg(*list, wint_t);
+	c = va_arg(*list, int);
 	len = 0;
 	CHKV1(s <= 0x10ffff, len = 4);
 	CHKV1(s <= 0xffff, len = 3);
