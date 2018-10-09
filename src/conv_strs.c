@@ -51,13 +51,14 @@ int			check_conv_wstr(char **format, va_list *list, t_flag *f)
 
 	(void)format;
 	i = 0;
-	s = va_arg(*list, wchar_t*);
-	CHKV1(s == NULL, s = L"(null)");
+	s = va_arg(*list, char*);
+	CHKV1(s == NULL, s = "(null)");
 	len = CHKCE(f->prec, widestr_precision(s, f->precision, 0), wide_strlen(s));
 	CHKV1(f->wdth && !f->dash, width_padding(len, f->fldwidth,
 											CHKCE(f->zero, '0', ' ')));
-	CHKV1((f->prec && f->precision) || !f->prec,
-		WHLE(s[i] && i < len, print_wchar(s[i++])));
+//	CHKV1((f->prec && f->precision) || !f->prec,
+//		WHLE(s[i] && i < len, print_wchar(s[i++])));
+	ft_putnstr(s, len);
 	CHKV1(f->wdth && f->dash, width_padding(len, f->fldwidth, ' '));
 	return (CHKCE(f->wdth, CHKMAX((int)f->fldwidth, len), len));
 }
