@@ -20,8 +20,8 @@ static int		conversion_flag_check(char **format, va_list *list, t_flag *f)
 	CHK1(**format == '\0', 0);
 	(*format)++;
 	CHK1(check_first_flags(format, f) == NULL, -1);
-	CHK1(check_field_width(format, f) == NULL, -1);
-	CHK1(check_precision(format, f) == NULL, -1);
+	CHK1(check_field_width(format, list, f) == NULL, -1);
+	CHK1(check_precision(format, list, f) == NULL, -1);
 	CHK1(check_length(format, f) == NULL, -1);
 	CHK1(**format == '\0', 0);
 	CHKE(conv_init(**format) == NULL, check = check_conv_null,

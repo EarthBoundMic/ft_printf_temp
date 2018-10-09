@@ -26,19 +26,35 @@ char	*check_first_flags(char **format, t_flag *f)
 	return (*format);
 }
 
-char	*check_field_width(char **format, t_flag *f)
+char	*check_field_width(char **format, va_list *list, t_flag *f)
 {
+	int	chk;
+
 	f->fldwidth = 0;
-	CHKV2(ft_isdigit(**format), f->wdth = 1, WHLE(ft_isdigit(**format),
-						f->fldwidth = f->fldwidth * 10 + (*(*format)++ - '0')));
+	while (**format == '*' || ft_isdigit(**format))
+	{
+		CHKV5(**format == '*', (*format)++, chk = va_arg(*list, int),
+			CHKV1(chk < 0, f->dash = 1),
+			f->fldwidth = CHKABS(chk),
+			f->wdth = 1);
+		CHKV3(ft_isdigit(**format), f->wdth = 1,
+			f->fldwidth = 0, WHLE(ft_isdigit(**format),
+			f->fldwidth = f->fldwidth * 10 + (*(*format)++ - '0')));
+	}
 	return (*format);
 }
 
-char	*check_precision(char **format, t_flag *f)
+char	*check_precision(char **format, va_list *list, t_flag *f)
 {
+	int chk;
+
 	f->precision = 0;
-	CHKV3(**format == '.', f->prec = 1, (*format)++, WHLE(ft_isdigit(**format),
-		LST2(f->precision = f->precision * 10 + **format - '0', (*format)++)));
+	CHKV3(**format == '.', f->prec = 1, (*format)++, CHKE(**format == '*',
+		LST3((*format)++, chk = va_arg(*list, int),
+			CHKE(chk >= 0, f->precision = chk,
+				f->prec = 0)), WHLE(ft_isdigit(**format),
+		LST2(f->precision = f->precision * 10 + **format - '0',
+			(*format)++))));
 	return (*format);
 }
 
