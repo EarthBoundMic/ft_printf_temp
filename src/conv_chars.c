@@ -41,7 +41,7 @@ int		check_conv_char(char **format, va_list *list, t_flag *f)
 {
 	int	c;
 
-	//CHK1(f->length == l, check_conv_wchar(format, list, f));
+	CHK1(f->length == l, check_conv_wchar(format, list, f));
 	c = va_arg(*list, int);
 	CHKV1(f->wdth && !f->dash, width_padding(1, f->fldwidth,
 											CHKCE(f->zero, '0', ' ')));
@@ -64,7 +64,8 @@ int		check_conv_wchar(char **format, va_list *list, t_flag *f)
 	CHKV1(s <= 0x7f, len = 1);
 	CHKV1(f->wdth && !f->dash, width_padding(len, f->fldwidth,
 											CHKCE(f->zero, '0', ' ')));
-	print_wchar(s);
+//	print_wchar(s);
+	ft_putchar(c);
 	CHKV1(f->wdth && f->dash, width_padding(len, f->fldwidth, ' '));
 	return (f->wdth ? CHKMAX(len, (int)f->fldwidth) : len);
 }
