@@ -62,8 +62,8 @@ int					ft_printf(const char *format, ...);
 */
 
 char				*check_first_flags(char **format, t_flag *f);
-char				*check_field_width(char **format, t_flag *f);
-char				*check_precision(char **format, t_flag *f);
+char				*check_field_width(char **format, va_list *list, t_flag *f);
+char				*check_precision(char **format, va_list *list, t_flag *f);
 char				*check_length(char **format, t_flag *f);
 
 /*
