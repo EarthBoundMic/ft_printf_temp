@@ -69,6 +69,7 @@
 # define CHKCE(a, b, c) (a ? b : c)
 # define CHKMIN(a, b) (a < b ? a : b)
 # define CHKMAX(a, b) (a > b ? a : b)
+# define CHKABS(a) (a < 0 ? -a : a)
 
 /*
 **	Same concept here but with while loop
@@ -85,7 +86,7 @@
 
 # define LST2(a, b) if(1){ a; b;}
 # define LST3(a, b, c) if(1){ a; b; c;}
-# define LST4(a, b, c, d) if(1){ a; b; c; d}
+# define LST4(a, b, c, d) if(1){ a; b; c; d;}
 # define LST5(a, b, c, d, e) if(1){ a; b; c; d; e;}
 # define LST6(a, b, c, d, e, f) if(1){ a; b; c; d; e; f;}
 
